@@ -3,9 +3,12 @@ import { Form, Button, Row, Col, Container } from 'react-bootstrap';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { signUpWithGoogle } from '../firebase/config/fireBaseAuth';
+import { useNavigate } from 'react-router-dom';
 
 function SignUpForm() {
-  
+
+  const navigate = useNavigate();
+
   return (
     <Container className="border p-4 mt-5 shadow-lg" style={{ maxWidth: '400px' }}>
       <h2 className="mb-4">Sign Up</h2>
@@ -64,7 +67,7 @@ function SignUpForm() {
         <Button variant="primary" type="submit">
             Register
         </Button>
-        <Button variant="primary" type="button" onClick={signUpWithGoogle}>
+        <Button variant="primary" type="button" onClick={()=> {signUpWithGoogle(navigate)}}>
         {/* <FontAwesomeIcon icon={faGoogle} size="1x"/> */}
         login with google
         </Button>

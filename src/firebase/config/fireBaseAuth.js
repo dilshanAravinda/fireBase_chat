@@ -1,6 +1,6 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-export const signUpWithGoogle = () => {
+export const signUpWithGoogle = (navigateFunc) => {
   const googleProvider = new GoogleAuthProvider();
 
   const auth = getAuth();
@@ -12,6 +12,7 @@ export const signUpWithGoogle = () => {
       // The signed-in user info.
       const user = result.user;
       console.log('user :'+user);
+      navigateFunc('/chat');
       // IdP data available using getAdditionalUserInfo(result)
       // ...
     })

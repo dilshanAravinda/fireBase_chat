@@ -7,7 +7,6 @@ import ChatRoom from './components/ChatRoom';
 import ChatList from './components/ChatList';
 
 function App() {
-  
   return (<>
   <Routes>
     <Route path='/' element = {<SignUpForm/>}/>
