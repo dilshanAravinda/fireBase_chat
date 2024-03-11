@@ -28,7 +28,9 @@ export const currentUser = ()=> {
 const user = auth.currentUser;
 
 if (user) {
-    console.log(user)
+    console.log(user.uid)
+    console.log(user.displayName)
+    console.log(user.email)
     // User is signed in, see docs for a list of available properties
   // https://firebase.google.com/docs/reference/js/auth.user
   // ...

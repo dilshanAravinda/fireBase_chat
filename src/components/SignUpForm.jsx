@@ -1,10 +1,11 @@
 import React from 'react';
 import { Form, Button, Row, Col, Container } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { signUpWithGoogle } from '../firebase/config/fireBaseAuth';
 
 function SignUpForm() {
+  
   return (
     <Container className="border p-4 mt-5 shadow-lg" style={{ maxWidth: '400px' }}>
       <h2 className="mb-4">Sign Up</h2>
@@ -64,7 +65,8 @@ function SignUpForm() {
             Register
         </Button>
         <Button variant="primary" type="button" onClick={signUpWithGoogle}>
-        <FontAwesomeIcon icon={faGoogle} size="1x"/>
+        {/* <FontAwesomeIcon icon={faGoogle} size="1x"/> */}
+        login with google
         </Button>
         
     </div>

@@ -5,11 +5,12 @@ import {msgModel} from '../firebase/model/msgModel'
 import {setDocWithId} from '../firebase/crud/setDoc';
 import SignOut from "./SignOut";
 import ChatMessage from "./ChatMessage";
-
+import {currentUser} from '../firebase/auth/users';
 export default function ChatRoom() {
-
+useEffect(()=> {currentUser()})
   const [messages, setMessages] = useState([]);
   const [formValue, setFormValue] = useState('');
+  const [isSignOut , setIsSignOut] = useState(false);
   const [id , setId] = useState(null);
 
   const dummy = useRef();
@@ -52,9 +53,9 @@ export default function ChatRoom() {
 
   const scrollToBottom = () => {
     // Access the section element using the ref
-    const sectionElement = sectionRef.current;
+    const sectionElement = sectionRef?.current;
     // Scroll to the bottom by setting scrollTop to the maximum value
-    sectionElement.scrollTop = sectionElement.scrollHeight;
+    if(sectionElement) sectionElement.scrollTop = sectionElement?.scrollHeight;
   };
 
   // Scroll to the bottom when the component re-renders
@@ -65,21 +66,18 @@ export default function ChatRoom() {
   <div className="App">
   <header>
        <h1>⚛️🔥💬</h1>
-       <SignOut />
+    <SignOut setIsSignOut={setIsSignOut} />
      </header>
 
      <section>
-        
-     
 
-
-    <main onScroll={()=> console.log(sectionRef.current.scrollTop)} ref={sectionRef} >
+    {!isSignOut && <main onScroll={()=> console.log(sectionRef.current.scrollTop)} ref={sectionRef} >
 
       {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
 
       <span ref={dummy}></span>
 
-    </main>
+    </main>}
 
     <form onSubmit={handleSubmit} >
 
