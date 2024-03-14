@@ -1,23 +1,37 @@
-import React, { useState } from 'react';
-import { ListGroup, Image, Container, Form } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { ListGroup, Image, Container, Form,Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { getAllUsers } from '../db/auth';
 
 function ChatList() {
+  const [users, setUsers] = useState([]);
+  console.log("users"+JSON.stringify(users))
+
+  useEffect(()=> {
+    const setAllUsers = async() => {
+      const docs = await getAllUsers();
+      setUsers(docs)
+    };
+    setAllUsers();
+  }, [])
+
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   
-  const chats = [
-    { id: 1, name: 'John Doe', lastMessage: 'Hey, how are you?', image: 'https://via.placeholder.com/50' },
-    { id: 2, name: 'Jane Smith', lastMessage: 'I\'m doing great, thanks!', image: 'https://via.placeholder.com/50' },
-    { id: 3, name: 'Alice Johnson', lastMessage: 'What are you up to today?', image: 'https://via.placeholder.com/50' },
-    { id: 4, name: 'Bob Williams', lastMessage: 'Let\'s catch up later.', image: 'https://via.placeholder.com/50' },
-    { id: 5, name: 'Emily Brown', lastMessage: 'Sure thing!', image: 'https://via.placeholder.com/50' },
-  ];
-
-  const filteredChats = chats.filter(chat =>
+  const filteredChats = users.filter(chat =>
     chat.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <Container style={{ maxWidth: '500px', marginTop: '20px' }}>
+    <div className="d-flex justify-content-between">
+      <Button className="btn btn-light my-3" onClick={() => navigate('/')}>
+        SignOut
+      </Button>
+      <Button className="btn btn-light my-3" onClick={() => navigate('/chat')}>
+        Chat History
+      </Button>
+    </div>
       <Form.Group controlId="search">
         <Form.Control
           type="text"

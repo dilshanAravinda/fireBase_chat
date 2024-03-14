@@ -6,7 +6,10 @@ import {setDocWithId} from '../firebase/crud/setDoc';
 import SignOut from "./SignOut";
 import ChatMessage from "./ChatMessage";
 import {currentUser} from '../firebase/auth/users';
+import { useNavigate } from "react-router-dom";
+
 export default function ChatRoom() {
+  const navigateToChat = useNavigate();
 useEffect(()=> {currentUser()})
   const [messages, setMessages] = useState([]);
   const [formValue, setFormValue] = useState('');
@@ -65,7 +68,7 @@ useEffect(()=> {currentUser()})
   return (<>
   <div className="App">
   <header>
-       <h1>⚛️🔥💬</h1>
+       <button onClick={()=> navigateToChat('/chatList')}>Back</button>
     <SignOut setIsSignOut={setIsSignOut} />
      </header>
 

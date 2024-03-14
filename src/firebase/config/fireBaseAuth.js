@@ -1,4 +1,7 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+// import {setDoc} from 'firebase/firestore';
+// import {setDocWithId_onlineUser} from '../crud/setDoc';
+import { addUser } from "../../db/auth";
 
 export const signUpWithGoogle = (navigateFunc) => {
   const googleProvider = new GoogleAuthProvider();
@@ -6,25 +9,20 @@ export const signUpWithGoogle = (navigateFunc) => {
   const auth = getAuth();
   signInWithPopup(auth, googleProvider)
     .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      // const credential = GoogleAuthProvider.credentialFromResult(result);
-      // const token = credential.accessToken;
-      // The signed-in user info.
       const user = result.user;
-      console.log('user :'+user);
+      
+      console.log("id"+ user.uid)
+      console.log("email"+ user.email)
+      console.log("name"+ user.displayName)
+      addUser(
+        {uid: user.uid, email: user.email, name: user.displayName}
+      );
       navigateFunc('/chat');
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
     })
     .catch((error) => {
-      // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
-      // The email of the user's account used.
       const email = error.customData.email;
-      // The AuthCredential type that was used.
-      // const credential = GoogleAuthProvider.credentialFromError(error);
       console.error(errorCode, errorMessage, email);
-      // ...
     });
 };
